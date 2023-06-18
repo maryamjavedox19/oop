@@ -13,6 +13,8 @@
 // userOne.logout();
 
 
+//INHERITANCE
+
 class User {
     constructor(email, name){
         this.email = email;
@@ -21,7 +23,7 @@ class User {
     }
     login(){
         console.log(this.email, 'just logged in');
-        return this;        //so we could chain method
+        return this;
     }
     logout(){
         console.log(this.email, 'just logged out');
@@ -30,15 +32,25 @@ class User {
     updateScore(){
         this.score++;
         console.log(this.email, 'score is now', this.score);
-        return this;    
+        return this;
+    }
+}
+
+class Admin extends User {
+    deleteUser(user){
+        users = users.filter(u => {
+            return u.email != user.email
+        });
     }
 }
 
 var userOne = new User('ryu@ninjas.com', 'Ryu');
 var userTwo = new User('yoshi@mariokorp.com', 'Yoshi');
+var admin = new Admin('shaun@ninjas.com', 'Shaun');
 
+var users = [userOne, userTwo, admin];
 
-//chaining methodg
-userOne.login().updateScore().updateScore().logout();
+// admin.deleteUser(userTwo);
+userTwo.deleteUser(userOne); // won't work
 
-console.log(userOne);
+console.log(users);
